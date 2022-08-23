@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
+﻿using ConsoleAppFramework.Logging;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using System;
-using ConsoleAppFramework.Logging;
+using System.Linq;
 
 namespace ConsoleAppFramework.Logging
 {
