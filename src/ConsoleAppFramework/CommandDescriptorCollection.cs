@@ -54,19 +54,19 @@ namespace ConsoleAppFramework
             this.rootCommandDescriptor = commandDescriptor;
         }
 
-		public void AddSubRootCommand(string parentCommand, CommandDescriptor commandDescriptor)
-		{
-			if (this.rootCommandDescriptor != null)
-			{
-				throw new InvalidOperationException($"Found more than one root command. Method:{rootCommandDescriptor.MethodInfo.DeclaringType?.Name}.{rootCommandDescriptor.MethodInfo.Name} and {commandDescriptor.MethodInfo.DeclaringType?.Name}.{commandDescriptor.MethodInfo.Name}");
-			}
+        public void AddSubRootCommand(string parentCommand, CommandDescriptor commandDescriptor)
+        {
+            if (this.rootCommandDescriptor != null)
+            {
+                throw new InvalidOperationException($"Found more than one root command. Method:{rootCommandDescriptor.MethodInfo.DeclaringType?.Name}.{rootCommandDescriptor.MethodInfo.Name} and {commandDescriptor.MethodInfo.DeclaringType?.Name}.{commandDescriptor.MethodInfo.Name}");
+            }
 
-			if (subCommandDescriptors.TryGetValue(parentCommand, out var commandDict))
-				commandDict.rootCommandDescriptor = commandDescriptor;
-		}
+            if (subCommandDescriptors.TryGetValue(parentCommand, out var commandDict))
+                commandDict.rootCommandDescriptor = commandDescriptor;
+        }
 
-		// Only check command name(not foo)
-		public bool TryGetDescriptor(string[] args, [MaybeNullWhen(false)] out CommandDescriptor descriptor, out int offset)
+        // Only check command name(not foo)
+        public bool TryGetDescriptor(string[] args, [MaybeNullWhen(false)] out CommandDescriptor descriptor, out int offset)
         {
             // 1. Try to match sub command
             if (args.Length >= 2)
@@ -94,13 +94,13 @@ namespace ConsoleAppFramework
                     return true;
                 }
 
-				if (subCommandDescriptors.TryGetValue(args[0], out var dict))
-				{
+                if (subCommandDescriptors.TryGetValue(args[0], out var dict))
+                {
                     descriptor = dict.rootCommandDescriptor!;
-					offset = 1;
-					return true;
-				}
-			}
+                    offset = 1;
+                    return true;
+                }
+            }
 
             // 3. default
             if (rootCommandDescriptor != null)
